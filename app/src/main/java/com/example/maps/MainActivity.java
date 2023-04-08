@@ -1,40 +1,24 @@
 package com.example.maps;
 
-import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.content.res.AppCompatResources;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
-
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.PointF;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.GestureDetector;
-import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.mapbox.geojson.Point;
-import com.mapbox.geojson.Feature;
-import com.mapbox.geojson.Point;
-import com.mapbox.geojson.Polygon;
 import com.mapbox.maps.MapView;
 import com.mapbox.maps.MapboxMap;
 import com.mapbox.maps.Style;
@@ -42,19 +26,13 @@ import com.mapbox.maps.ViewAnnotationAnchor;
 import com.mapbox.maps.ViewAnnotationOptions;
 import com.mapbox.maps.extension.style.sources.generated.GeoJsonSource;
 import com.mapbox.maps.plugin.annotation.AnnotationConfig;
-import com.mapbox.maps.plugin.annotation.AnnotationManager;
 import com.mapbox.maps.plugin.annotation.AnnotationPlugin;
 import com.mapbox.maps.plugin.annotation.AnnotationPluginImplKt;
-import com.mapbox.maps.plugin.annotation.generated.CircleAnnotationManager;
-import com.mapbox.maps.plugin.annotation.generated.CircleAnnotationManagerKt;
-import com.mapbox.maps.plugin.annotation.generated.CircleAnnotationOptions;
 import com.mapbox.maps.plugin.annotation.generated.OnPointAnnotationClickListener;
 import com.mapbox.maps.plugin.annotation.generated.PointAnnotation;
 import com.mapbox.maps.plugin.annotation.generated.PointAnnotationManager;
 import com.mapbox.maps.plugin.annotation.generated.PointAnnotationManagerKt;
 import com.mapbox.maps.plugin.annotation.generated.PointAnnotationOptions;
-import com.mapbox.maps.plugin.annotation.generated.PolygonAnnotationManager;
-import com.mapbox.maps.plugin.annotation.generated.PolygonAnnotationManagerKt;
 import com.mapbox.maps.plugin.annotation.generated.PolylineAnnotation;
 import com.mapbox.maps.plugin.annotation.generated.PolylineAnnotationManager;
 import com.mapbox.maps.plugin.annotation.generated.PolylineAnnotationManagerKt;
@@ -63,11 +41,7 @@ import com.mapbox.maps.plugin.gestures.GesturesPlugin;
 import com.mapbox.maps.plugin.gestures.GesturesUtils;
 import com.mapbox.maps.plugin.gestures.OnMapClickListener;
 import com.mapbox.maps.plugin.gestures.OnMapLongClickListener;
-import com.mapbox.maps.ViewAnnotationOptions;
-//import com.mapbox.maps.viewannotation.ViewAnnotation;
-//import com.mapbox.maps.viewannotation.ViewAnnotation;
 import com.mapbox.maps.viewannotation.ViewAnnotationManager;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -161,8 +135,6 @@ public class MainActivity extends AppCompatActivity {
         gesturesPlugin.addOnMapLongClickListener(new OnMapLongClickListener() {
             @Override
             public boolean onMapLongClick(@NonNull Point point) {
-//                Toast.makeText(MainActivity.this, "Long click"+point.coordinates(), Toast.LENGTH_SHORT).show();
-//                System.out.println(point.latitude()+" "+point.longitude());
                 return false;
             }
         });
@@ -179,17 +151,13 @@ public class MainActivity extends AppCompatActivity {
             street.setVisibility(View.VISIBLE);
             satellite.setVisibility(View.VISIBLE);
             dark.setVisibility(View.VISIBLE);
-//            street.setEnabled(true);
-//            satellite.setEnabled(true);
-//            dark.setEnabled(true);
+
 
         }else{
             street.setVisibility(View.INVISIBLE);
             satellite.setVisibility(View.INVISIBLE);
             dark.setVisibility(View.INVISIBLE);
-//            street.setEnabled(false);
-//            satellite.setEnabled(false);
-//            dark.setEnabled(false);
+
         }
     }
     private void setAnimations(Boolean clicked) {
@@ -225,15 +193,14 @@ public class MainActivity extends AppCompatActivity {
                 coordinates.remove(point);
                 annotations = coordinates.size();
                 pointAnnotationManager.delete(point);
-//                polylineAnnotationManager.delete(polylineAnnotation);
                 function_to_remove(viewAnnotation);
             }
             public void function_to_remove(View anno){
-//                if(anno != null) {
-                    viewAnnotationManager.removeViewAnnotation(anno);
-                    Toast.makeText(MainActivity.this, "removed......", Toast.LENGTH_SHORT).show();
-//                    viewAnnotationManager.updateViewAnnotation(anno);
-//                }
+
+                viewAnnotationManager.removeViewAnnotation(anno);
+                Toast.makeText(MainActivity.this, "removed......", Toast.LENGTH_SHORT).show();
+
+
             }
         });
     }
@@ -248,7 +215,7 @@ public class MainActivity extends AppCompatActivity {
     private void addAnnotationToMap(Point point) {
         Bitmap icon = getBitmapFromVectorDrawable(this ,R.drawable.baseline_location_on_24);
 
-// Set options for the resulting symbol layer.
+
         if(icon != null){
             PointAnnotationOptions pointAnnotationOptions = new PointAnnotationOptions()
                     .withPoint(point)
